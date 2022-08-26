@@ -1,5 +1,6 @@
 const { sLogin, sCreateUser, sFindAllUsers, sFindById } = require('../services/user');
 const { configAuthorization } = require('../utils/authorization');
+// const { User } = require('../database/models');
 
 async function cLogin(req, res) {
   try {
@@ -41,7 +42,11 @@ async function cFindAllUsers(_req, res) {
 
 async function cFindById(req, res) {
   try {
+    // const verifyUser = await User.findByPk(req.params.id);
+
     const user = await sFindById(req.params);
+
+    // if (!user) res.status(404).json({ message: 'User does not exist' });
 
     return res.status(200).json(user);
   } catch (error) {
