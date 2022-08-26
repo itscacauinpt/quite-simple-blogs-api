@@ -1,13 +1,5 @@
-const jwt = require('jsonwebtoken');
-
-const { JWT_SECRET } = process.env;
-
-const { sLogin, sCreateUser } = require('../services/user');
-
-const jwtConfig = {
-  expiresIn: '5d',
-  algorithm: 'HS256',
-};
+const { sLogin, sCreateUser, sFindAllUsers } = require('../services/user');
+const { configAuthorization } = require('../utils/authorization');
 
 async function cLogin(req, res) {
   try {
@@ -15,9 +7,7 @@ async function cLogin(req, res) {
 
     if (!user) return res.status(400).json({ message: 'Invalid fields' });
 
-    const token = jwt.sign({
-      data: { user } },
-      JWT_SECRET, jwtConfig);
+    const token = configAuthorization.signAuth(user);
 
     return res.status(200).json({ token });
   } catch (error) {
@@ -30,11 +20,19 @@ async function cCreateUser(req, res) {
   try {
     const newUser = await sCreateUser(req.body);
 
-    const token = jwt.sign({
-      data: { newUser } },
-      JWT_SECRET, jwtConfig);
+    const token = configAuthorization.signAuth(newUser);
 
     return res.status(201).json({ token });
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json(error.message);
+  }
+}
+
+async function cFindAllUsers(_req, res) {
+  try {
+    const users = await sFindAllUsers();
+    return res.status(200).json(users);
   } catch (error) {
     console.log(error.message);
     return res.status(500).json(error.message);
@@ -44,4 +42,5 @@ async function cCreateUser(req, res) {
 module.exports = {
   cLogin,
   cCreateUser,
+  cFindAllUsers,
 };
