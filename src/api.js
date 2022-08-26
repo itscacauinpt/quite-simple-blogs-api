@@ -1,13 +1,13 @@
 const express = require('express');
 
-const controller = require('./controller/user');
-const middLogin = require('./middleware/veridyLogin');
+const { cLogin } = require('./controller/user');
+const { verifyLogin } = require('./middleware/veridyLogin');
 
 const app = express();
 
 app.use(express.json());
 
-app.post('/login', middLogin.verifyLogin, controller.cLogin);
+app.post('/login', verifyLogin, cLogin);
 // ...
 
 // É importante exportar a constante `app`,
