@@ -1,27 +1,19 @@
-const jwt = require('jsonwebtoken');
-
-const { JWT_SECRET } = process.env;
+const { configAuthorization } = require('../utils/authorization');
 
 async function verifyAuth(req, res, next) {
   const { authorization } = req.headers;
 
-  if (!authorization) {
-    return res.status(401).json({ message: 'Token not found' });
-  }
+  if (!authorization) return res.status(401).json({ message: 'Token not found' });
 
   try {
-    const payload = jwt.verify(authorization, JWT_SECRET);
-
-    if (!payload) {
-      return res.status(401).json({ message: 'Expired or invalid token' });
-    }
+    const { payload } = configAuthorization.verifyAuth(authorization);
 
     req.user = payload;
 
     next();
   } catch (error) {
     console.log(error.message);
-    return res.status(500).json(error.message);
+    return res.status(401).json({ message: 'Expired or invalid token' });
   }
 }
 
