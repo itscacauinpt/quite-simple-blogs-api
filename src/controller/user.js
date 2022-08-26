@@ -13,13 +13,18 @@ async function cLogin(req, res) {
   try {
     const user = await service.sLogin(req.body);
 
-    const token = jwt.sign({ email: req.body.email }, JWT_SECRET, jwtConfig);
+    console.log(user);
 
-    if (!user) return res.status(400).json({ message: 'Invalid fields' }); 
+    if (!user) return res.status(400).json({ message: 'Invalid fields' });
+
+    const token = jwt.sign({
+      data: { email: req.body.email } },
+      JWT_SECRET, jwtConfig);
 
     return res.status(200).json({ token });
   } catch (error) {
-    console.log(error.code);
+    console.log(error.message);
+    return res.status(500).json(error.message);
   }
 }
 

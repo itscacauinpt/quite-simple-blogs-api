@@ -1,7 +1,9 @@
-const { User } = require('../database/models/user');
+const { User } = require('../database/models');
 
-function sLogin({ email, password }) {
-  return User.findOne({ where: email, password });
+async function sLogin({ email, password }) {
+  return User.findOne({
+    where: { email, password },
+  });
 }
 
 module.exports = {
