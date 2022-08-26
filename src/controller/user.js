@@ -1,4 +1,4 @@
-const { sLogin, sCreateUser, sFindAllUsers } = require('../services/user');
+const { sLogin, sCreateUser, sFindAllUsers, sFindById } = require('../services/user');
 const { configAuthorization } = require('../utils/authorization');
 
 async function cLogin(req, res) {
@@ -39,8 +39,20 @@ async function cFindAllUsers(_req, res) {
   }
 }
 
+async function cFindById(req, res) {
+  try {
+    const user = await sFindById(req.params);
+
+    return res.status(200).json(user);
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json(error.message);
+  }
+}
+
 module.exports = {
   cLogin,
+  cFindById,
   cCreateUser,
   cFindAllUsers,
 };

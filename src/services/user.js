@@ -15,8 +15,15 @@ function sFindAllUsers() {
     attributes: { exclude: ['password'] } });
 }
 
+function sFindById({ id }) {
+  return User.findOne({
+    where: { id },
+    attributes: { exclude: ['password'] } });
+}
+
 module.exports = {
   sLogin,
+  sFindById,
   sCreateUser,
   sFindAllUsers,
 };

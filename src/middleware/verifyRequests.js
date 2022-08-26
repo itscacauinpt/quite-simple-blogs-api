@@ -43,8 +43,17 @@ async function verifyUser(req, res, next) {
   next();
 }
 
+async function verifyIfUserExits(req, res, next) {
+  const user = await User.findByPk(req.params.id);
+
+  if (!user) res.status(404).json({ message: 'User does not exist' });
+
+  next();
+}
+
 module.exports = {
-  verifyLogin,
   verifyUser,
+  verifyLogin,
   verifyUserEmail,
+  verifyIfUserExits,
 };

@@ -1,8 +1,11 @@
 const express = require('express');
 
 const { verifyAuth } = require('./middleware/verifyAuth');
-const { cLogin, cCreateUser, cFindAllUsers } = require('./controller/user');
-const { verifyLogin, verifyUser, verifyUserEmail } = require('./middleware/verifyRequests');
+
+const { verifyLogin, verifyUser, verifyUserEmail,
+  verifyIfUserExits } = require('./middleware/verifyRequests');
+
+const { cLogin, cCreateUser, cFindAllUsers, cFindById } = require('./controller/user');
 
 const app = express();
 
@@ -12,6 +15,7 @@ app.post('/login', verifyLogin, cLogin);
 app.post('/user', verifyUser, verifyUserEmail, cCreateUser);
 
 app.get('/user', verifyAuth, cFindAllUsers);
+app.get('/user/:id', verifyIfUserExits, verifyAuth, cFindById);
 
 // É importante exportar a constante `app`,
 // para que possa ser utilizada pelo arquivo `src/server.js`
