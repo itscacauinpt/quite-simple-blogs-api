@@ -6,7 +6,7 @@ const { verifyLogin, verifyUser, verifyUserEmail } = require('./middleware/verif
 
 const { cLogin, cCreateUser, cFindAllUsers, cFindById } = require('./controller/user');
 
-const { cCreateCategory } = require('./controller/category');
+const { cCreateCategory, cFindAllCategories } = require('./controller/category');
 
 const { verifyCategory } = require('./middleware/verifyCategoryReq');
 
@@ -21,6 +21,7 @@ app.get('/user', verifyAuth, cFindAllUsers);
 app.get('/user/:id', verifyAuth, cFindById);
 
 app.post('/categories', verifyCategory, verifyAuth, cCreateCategory);
+app.get('/categories', verifyAuth, cFindAllCategories);
 
 // É importante exportar a constante `app`,
 // para que possa ser utilizada pelo arquivo `src/server.js`

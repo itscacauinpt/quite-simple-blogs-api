@@ -1,4 +1,4 @@
-const { sCreateCategory } = require('../services/category');
+const { sCreateCategory, sFindAllCategories } = require('../services/category');
 
 async function cCreateCategory(req, res) {
   try {
@@ -11,6 +11,18 @@ async function cCreateCategory(req, res) {
   }
 }
 
+async function cFindAllCategories(req, res) {
+  try {
+    const categories = await sFindAllCategories();
+    
+    return res.status(200).json(categories);
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json(error.message);
+  }
+}
+
 module.exports = {
   cCreateCategory,
+  cFindAllCategories,
 };
