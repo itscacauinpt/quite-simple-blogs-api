@@ -7,7 +7,6 @@ async function verifyAuth(req, res, next) {
 
   try {
     const { data: { payload } } = configAuthorization.verifyAuth(authorization);
-    console.log(payload);
 
     req.user = payload;
 
