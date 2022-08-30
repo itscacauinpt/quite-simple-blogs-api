@@ -52,9 +52,16 @@ async function sUpdatePost({ id }, { title, content }) {
   return updated;
 }
 
+async function sDeletePost({ id }) {
+  return BlogPost.destroy({
+    where: { id },
+  });
+}
+
 module.exports = {
   sCreateNewPost,
   sFindAllPosts,
   sFindPostById,
   sUpdatePost,
+  sDeletePost,
 };

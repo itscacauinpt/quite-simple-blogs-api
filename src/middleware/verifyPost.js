@@ -41,7 +41,23 @@ async function verifyUpdate(req, res, next) {
   next();
 }
 
+async function verifyDeleted(req, res, next) {
+  const userId = req.user;
+  const { id } = req.params;
+
+  const post = await BlogPost.findByPk(id);
+
+  if (post.id !== userId.id) {
+    return res.status(401).json({
+      message: 'Unauthorized user',
+    });
+  }
+
+  next();
+}
+
 module.exports = {
   verifyPost,
   verifyUpdate,
+  verifyDeleted,
 };

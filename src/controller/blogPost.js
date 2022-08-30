@@ -1,6 +1,6 @@
 const {
   sCreateNewPost, sFindAllPosts,
-  sFindPostById, sUpdatePost } = require('../services/blogPost');
+  sFindPostById, sUpdatePost, sDeletePost } = require('../services/blogPost');
 
 async function cCreateNewPost(req, res) {
   try {
@@ -49,9 +49,23 @@ async function cUpdatePost(req, res) {
   }
 }
 
+async function cDeletePost(req, res) {
+  try {
+    const deleted = await sDeletePost(req.params);
+
+    if (!deleted) return res.status(400).json({ message: 'Post does not exist' });
+
+    return res.status(deleted).json({});
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json(error.message);
+  }
+}
+
 module.exports = {
   cCreateNewPost,
   cFindAllPosts,
   cFindPostById,
   cUpdatePost,
+  cDeletePost,
 };
