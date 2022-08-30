@@ -4,7 +4,7 @@ const { verifyAuth } = require('./middleware/verifyAuth');
 
 const { verifyLogin, verifyUser, verifyUserEmail } = require('./middleware/verifyRequests');
 
-const { cLogin, cCreateUser, cFindAllUsers, cFindById } = require('./controller/user');
+const { cLogin, cCreateUser, cFindAllUsers, cFindById, cDeleteUser } = require('./controller/user');
 
 const { cCreateCategory, cFindAllCategories } = require('./controller/category');
 
@@ -25,6 +25,7 @@ app.post('/user', verifyUser, verifyUserEmail, cCreateUser);
 
 app.get('/user', verifyAuth, cFindAllUsers);
 app.get('/user/:id', verifyAuth, cFindById);//
+app.delete('/user/me', verifyAuth, cDeleteUser);//
 
 app.post('/categories', verifyCategory, verifyAuth, cCreateCategory);
 app.get('/categories', verifyAuth, cFindAllCategories);

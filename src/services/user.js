@@ -21,9 +21,16 @@ function sFindById({ id }) {
     attributes: { exclude: ['password'] } });
 }
 
+async function sDeleteUser({ id }) {
+  return User.destroy({
+    where: { id },
+  });
+}
+
 module.exports = {
   sLogin,
   sFindById,
   sCreateUser,
   sFindAllUsers,
+  sDeleteUser,
 };

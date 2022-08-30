@@ -1,4 +1,4 @@
-const { sLogin, sCreateUser, sFindAllUsers, sFindById } = require('../services/user');
+const { sLogin, sCreateUser, sFindAllUsers, sFindById, sDeleteUser } = require('../services/user');
 const { configAuthorization } = require('../utils/authorization');
 // const { User } = require('../database/models');
 
@@ -55,9 +55,21 @@ async function cFindById(req, res) {
   }
 }
 
+async function cDeleteUser(req, res) {
+  try {
+    await sDeleteUser(req.user);
+
+    return res.status(204).json({});
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json(error.message);
+  }
+}
+
 module.exports = {
   cLogin,
   cFindById,
   cCreateUser,
   cFindAllUsers,
+  cDeleteUser,
 };
