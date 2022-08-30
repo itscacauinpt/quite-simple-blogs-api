@@ -41,16 +41,20 @@ async function sFindPostById({ id }) {
   });
 }
 
+async function sUpdatePost({ id }, { title, content }) {
+  await BlogPost.update(
+    { title, content },
+    { where: { id } },
+  );
+
+  const updated = await sFindPostById({ id });
+
+  return updated;
+}
+
 module.exports = {
   sCreateNewPost,
   sFindAllPosts,
   sFindPostById,
+  sUpdatePost,
 };
-// {
-//   "id": 3,
-//   "title": "Latest updates, August 1st",
-//   "content": "The whole text for the blog post goes here in this key",
-//   "userId": 1,
-//   "updated": "2022-05-18T18:00:01.196Z",
-//   "published": "2022-05-18T18:00:01.196Z"
-// }

@@ -1,4 +1,6 @@
-const { sCreateNewPost, sFindAllPosts, sFindPostById } = require('../services/blogPost');
+const {
+  sCreateNewPost, sFindAllPosts,
+  sFindPostById, sUpdatePost } = require('../services/blogPost');
 
 async function cCreateNewPost(req, res) {
   try {
@@ -36,8 +38,20 @@ async function cFindPostById(req, res) {
   }
 }
 
+async function cUpdatePost(req, res) {
+  try {
+    const updated = await sUpdatePost(req.params, req.body);
+
+    return res.status(200).json(updated);
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json(error.message);
+  }
+}
+
 module.exports = {
   cCreateNewPost,
   cFindAllPosts,
   cFindPostById,
+  cUpdatePost,
 };
