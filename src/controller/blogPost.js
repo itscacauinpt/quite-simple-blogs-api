@@ -1,4 +1,4 @@
-const { sCreateNewPost } = require('../services/blogPost');
+const { sCreateNewPost, sFindAllPosts } = require('../services/blogPost');
 
 async function cCreateNewPost(req, res) {
   try {
@@ -12,6 +12,18 @@ async function cCreateNewPost(req, res) {
   }
 }
 
+async function cFindAllPosts(_req, res) {
+  try {
+    const allPosts = await sFindAllPosts();
+
+    return res.status(200).json(allPosts);
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json(error.message);
+  }
+}
+
 module.exports = {
   cCreateNewPost,
+  cFindAllPosts,
 };

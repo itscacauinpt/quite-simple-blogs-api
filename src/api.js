@@ -10,7 +10,7 @@ const { cCreateCategory, cFindAllCategories } = require('./controller/category')
 
 const { verifyCategory } = require('./middleware/verifyCategoryReq');
 
-const { cCreateNewPost } = require('./controller/blogPost');
+const { cCreateNewPost, cFindAllPosts } = require('./controller/blogPost');
 
 const { verifyPost } = require('./middleware/verifyPost');
 
@@ -28,6 +28,7 @@ app.post('/categories', verifyCategory, verifyAuth, cCreateCategory);
 app.get('/categories', verifyAuth, cFindAllCategories);
 
 app.post('/post', verifyAuth, verifyPost, cCreateNewPost);
+app.get('/post', verifyAuth, cFindAllPosts);
 
 // É importante exportar a constante `app`,
 // para que possa ser utilizada pelo arquivo `src/server.js`

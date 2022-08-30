@@ -1,4 +1,4 @@
-const { BlogPost, User, PostCategory } = require('../database/models');
+const { BlogPost, User, PostCategory, Category } = require('../database/models');
 const { configAuthorization } = require('../utils/authorization');
 
 async function sCreateNewPost({ title, content, categoryIds }, token) {
@@ -22,8 +22,18 @@ async function sCreateNewPost({ title, content, categoryIds }, token) {
   return dataValues;
 }
 
+async function sFindAllPosts() {
+  return BlogPost.findAll({
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+}
+
 module.exports = {
   sCreateNewPost,
+  sFindAllPosts,
 };
 // {
 //   "id": 3,
