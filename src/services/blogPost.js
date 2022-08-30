@@ -31,9 +31,20 @@ async function sFindAllPosts() {
   });
 }
 
+async function sFindPostById({ id }) {
+  return BlogPost.findOne({
+    where: { id },
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+}
+
 module.exports = {
   sCreateNewPost,
   sFindAllPosts,
+  sFindPostById,
 };
 // {
 //   "id": 3,

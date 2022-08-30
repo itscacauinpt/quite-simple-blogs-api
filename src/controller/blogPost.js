@@ -1,4 +1,4 @@
-const { sCreateNewPost, sFindAllPosts } = require('../services/blogPost');
+const { sCreateNewPost, sFindAllPosts, sFindPostById } = require('../services/blogPost');
 
 async function cCreateNewPost(req, res) {
   try {
@@ -23,7 +23,21 @@ async function cFindAllPosts(_req, res) {
   }
 }
 
+async function cFindPostById(req, res) {
+  try {
+    const post = await sFindPostById(req.params);
+
+    if (!post) return res.status(404).json({ message: 'Post does not exist' });
+
+    return res.status(200).json(post);
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json(error.message);
+  }
+}
+
 module.exports = {
   cCreateNewPost,
   cFindAllPosts,
+  cFindPostById,
 };
