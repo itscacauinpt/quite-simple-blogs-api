@@ -45,9 +45,9 @@ async function verifyDeleted(req, res, next) {
   const userId = req.user;
   const { id } = req.params;
 
-  const post = await BlogPost.findByPk(id);
+  const { dataValues } = await BlogPost.findByPk(id);
 
-  if (post.id !== userId.id) {
+  if (dataValues.userId !== userId.id) {
     return res.status(401).json({
       message: 'Unauthorized user',
     });

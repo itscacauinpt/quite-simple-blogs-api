@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const { BlogPost, User, PostCategory, Category } = require('../database/models');
 const { configAuthorization } = require('../utils/authorization');
 
@@ -58,10 +59,26 @@ async function sDeletePost({ id }) {
   });
 }
 
+async function sSeachPost({ q }) {
+  // where: [{ title: { [Op.like]: q } },
+  //        { content: { [Op.like]: q } }],
+  return BlogPost.findAll({ 
+    where: {
+    [Op.or]: [
+     { title: { [Op.like]: q } },
+     { content: { [Op.like]: q } }],
+    },
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } }, 
+      { model: Category, as: 'categories' }],
+  });
+}
+
 module.exports = {
   sCreateNewPost,
   sFindAllPosts,
   sFindPostById,
   sUpdatePost,
   sDeletePost,
+  sSeachPost,
 };

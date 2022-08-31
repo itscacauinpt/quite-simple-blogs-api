@@ -1,6 +1,6 @@
 const {
-  sCreateNewPost, sFindAllPosts,
-  sFindPostById, sUpdatePost, sDeletePost } = require('../services/blogPost');
+  sCreateNewPost, sFindAllPosts, sFindPostById,
+  sUpdatePost, sDeletePost, sSeachPost } = require('../services/blogPost');
 
 async function cCreateNewPost(req, res) {
   try {
@@ -55,7 +55,20 @@ async function cDeletePost(req, res) {
 
     if (!deleted) return res.status(400).json({ message: 'Post does not exist' });
 
-    return res.status(deleted).json({});
+    return res.status(200).json({});
+  } catch (error) {
+    console.log(error.message);
+    return res.status(500).json(error.message);
+  }
+}
+
+async function cSeachPost(req, res) {
+  try {
+    const searched = await sSeachPost(req.query);
+
+    if (!searched) return res.status(200).json([]);
+
+    return res.status(200).json(searched);
   } catch (error) {
     console.log(error.message);
     return res.status(500).json(error.message);
@@ -68,4 +81,5 @@ module.exports = {
   cFindPostById,
   cUpdatePost,
   cDeletePost,
+  cSeachPost,
 };

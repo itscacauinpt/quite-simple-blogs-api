@@ -53,9 +53,10 @@ async function cFindById(req, res) {
 
 async function cDeleteUser(req, res) {
   try {
-    await sDeleteUser(req.user);
+    const payload = req.user;
+    await sDeleteUser(payload.id);
 
-    return res.status(204).json({});
+    return res.status(204).end();
   } catch (error) {
     console.log(error.message);
     return res.status(500).json(error.message);

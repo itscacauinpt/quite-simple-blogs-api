@@ -21,7 +21,7 @@ function sFindById({ id }) {
     attributes: { exclude: ['password'] } });
 }
 
-async function sDeleteUser({ id }) {
+async function sDeleteUser(id) {
   return User.destroy({
     where: { id },
   });
