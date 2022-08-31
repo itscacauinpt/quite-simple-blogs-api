@@ -24,9 +24,9 @@ async function verifyUpdate(req, res, next) {
 
   const { title, content } = req.body;
 
-  const post = await BlogPost.findByPk(id);
+  const { dataValues } = await BlogPost.findByPk(id);
 
-  if (post.id !== userId.id) {
+  if (dataValues.userId !== userId.id) {
     return res.status(401).json({
       message: 'Unauthorized user',
     });
