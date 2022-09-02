@@ -60,13 +60,16 @@ async function sDeletePost({ id }) {
 }
 
 async function sSeachPost({ q }) {
-  // where: [{ title: { [Op.like]: q } },
-  //        { content: { [Op.like]: q } }],
   return BlogPost.findAll({ 
     where: {
-    [Op.or]: [
-     { title: { [Op.like]: q } },
-     { content: { [Op.like]: q } }],
+      [Op.or]: [
+        {
+          title: { [Op.like]: `%${q}%` },
+        },
+        {
+          content: { [Op.like]: `%${q}%` },
+        },
+      ],
     },
     include: [
       { model: User, as: 'user', attributes: { exclude: ['password'] } }, 
