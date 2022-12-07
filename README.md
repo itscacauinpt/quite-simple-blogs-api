@@ -21,9 +21,20 @@ Projeto feito de forma individual durante o curso da [Trybe](https://www.betrybe
 * Joi
 * JWT
 
-## ⭐ Habilidades 
+## ⭐ Habilidade
   ***
 
+## 💻 Como testar manualmente
+
+:point_right: Para testar com o Docker (warning o docker-compose precisa estar na versão 1.29 ou superior):
+
+* rode os serviços node e db com o comando <code>docker-compose up -d --build</code>
+* use o comando <code>docker exec -it blogs_api bash</code>
+* instale as dependências <code>npm install</code> e inicie o app <code>npm start</code>
+
+:point_right: Sem Docker
+
+* instale as dependências <code>npm install</code> e inicie o app <code>npm start</code>
 
 <hr/>
 
