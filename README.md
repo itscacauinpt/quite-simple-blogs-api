@@ -1,6 +1,6 @@
 <img src="https://www.freepnglogos.com/uploads/logo-mysql-png/logo-mysql-mysql-and-moodle-elearningworld-5.png" alt="logo jest" width="80px" align="right">
 
-# Project MySQL One For All
+# Project MySQL Blog's API
 > Status do Projeto: concluído :heavy_check_mark: :warning:
 
 > :warning: Extras:
