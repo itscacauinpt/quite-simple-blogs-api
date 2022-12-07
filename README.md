@@ -3,7 +3,10 @@
 # Project MySQL One For All
 > Status do Projeto: concluído :heavy_check_mark: :warning:
 
-> Extras: Aplicar Swagger :warning:
+> :warning: Extras:
+> - [ ] Aplicar Swagger
+> - [ ] Aplicar Testes
+
 
 Projeto feito de forma individual durante o curso da [Trybe](https://www.betrybe.com/). Projeto com o objetivo de desenvolver uma API e um banco de dados para a produção de conteúdo para um blog!
 ## 🔧 Funcionalidades
@@ -20,9 +23,6 @@ Projeto feito de forma individual durante o curso da [Trybe](https://www.betrybe
 * MySQL
 * Joi
 * JWT
-
-## ⭐ Habilidade
-  ***
 
 ## 💻 Como testar manualmente
 
