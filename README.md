@@ -21,7 +21,6 @@ Projeto feito de forma individual durante o curso da [Trybe](https://www.betrybe
 * Express.js
 * Sequelize
 * MySQL
-* Joi
 * JWT
 
 ## 💻 Como testar manualmente
